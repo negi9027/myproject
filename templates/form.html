@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Karma Ayurveda: Forms</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+    <form onsubmit="send(event)">
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="inputEmail4">Enter name</label>
+            <input type="text" name="name" class="form-control" id="inputEmail4" placeholder="Enter Name">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="idphone">Phone</label>
+            <input type="tel" name="phone" class="form-control" id="idphone" placeholder="phone">
+          </div>
+        </div>
+       
+        <select name="diseases" id="diseases">
+            <option selected value="kidney">Kidney</option>
+            <option value="cancer">Cancer</option>
+            <option value="liver">Liver</option>
+            <option value="parkinsons">Parkinson's Disease</option>
+          </select>
+
+          <input type="hidden" value="{{csrf_token}}" id="hiddenCsrfToken">
+          
+          <input type="text">
+        <button  class="btn btn-primary">Sign in</button>
+      </form>
+</body>
+<script>
+
+    function send(event){
+        console.log('workging')
+        event.preventDefault()
+        dataToSend = {
+        "name": document.getElementById("inputEmail4").value,
+        "phone":document.getElementById('idphone').value,
+        "disease":document.getElementById('diseases').value,
+
+    }
+
+     fetch('/saveLeads/', {
+        method:'POST',
+        credentials: 'same-origin',
+        headers: {
+            'Accept': 'application/json',
+            'X-CSRFToken': document.getElementById('hiddenCsrfToken').value,
+        },
+        body: JSON.stringify(dataToSend)
+    }).then(res => {
+        return res.json();
+    }).then(data => {
+        console.log(data)
+    })
+    }
+</script>
+</html>

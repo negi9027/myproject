@@ -1,24 +1,29 @@
-"""
-URL configuration for myproject project.
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/4.2/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
+# myproject/urls.py
 from django.contrib import admin
-from django.urls import path
-from myapp import views
+from django.urls import path , include
+from . import views
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
 
 urlpatterns = [
+    # path('send-notification/', views.send_notification, name='send_notification'),
+
     path('admin/', admin.site.urls),
-    path('', views.home),
+    path('api/superadmin/', include('superadmin.urls')), 
+    path('api/dme/', include('dme.urls')),
+    path('api/processhead/',include('processhead.urls')),
+    path('api/callingagent/',include('callingagent.urls')), 
+    path('api/knowledgebank/',include('knowledgebank.urls')),
+    path('api/token', views.LoginAPIView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/logout', views.logout, name='token_logout'),    
+    path('api/token/verify', TokenVerifyView.as_view(), name='token_verify'),    
+    path('api/enquiry',views.enquiry),
+    path('api/notifications',views.notifications),
+    path('form/',views.form),
+    path('jdcrm',views.jdcrm),
+    path('jdcrm/logout',views.jdcrmlogout),
+    path('saveLeads/',views.saveLeads),
+    path('updatejdleads/',views.update_lead_status),
+    path('changedatabase/',views.changedatabase),
+path('checkwebsockets/<str:a>/', views.checkwebsockets),
 ]
