@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure--qb-a@3q^=-h=6kdo*+i!4g79=%zh2%7y!@tsqtq^5cs#s)dd8
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['97.74.90.235', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['97.74.90.235', 'localhost', '127.0.0.1', 'karmaayurvedahospital.co', 'www.karmaayurvedahospital.co']
 
 
 
